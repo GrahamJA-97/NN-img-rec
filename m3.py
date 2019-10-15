@@ -1,7 +1,5 @@
-#    name: pa2Template.py
-# purpose: template for building a Keras model
-#          for hand written number classification
-#    NOTE: Submit a different python file for each model
+#    name: Jake Graham and Chris Schulz
+#    model number: 3
 # -------------------------------------------------
 
 
