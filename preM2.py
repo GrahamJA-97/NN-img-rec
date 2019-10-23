@@ -17,11 +17,11 @@ def processTestData(X, y):
 
     # X pre-processing goes here -- students optionally complete
     # reshapes and normalizes our test data.
-    X = X.reshape(10000, 784)
-    min_max_scaler = preprocessing.MinMaxScaler()
-    Xscaled = min_max_scaler.fit_transform(X)
+    n = X.shape[0]  # need to adjust the reshape to account for different sized datasets (n, 28, 28)
+
+    X = X.reshape(n, 28, 28, 1)
 
     # y pre-processing goes here.  y_test becomes a ohe
-    y_ohe = np_utils.to_categorical (y, NB_CLASSES)
+    y_ohe = np_utils.to_categorical(y, NB_CLASSES)
 
-    return Xscaled, y_ohe
+    return X, y_ohe
