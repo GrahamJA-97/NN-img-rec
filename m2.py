@@ -66,7 +66,7 @@ def main():
     model.add(Conv2D(64, kernel_size=3, input_shape=(28, 28, 1), activation='relu'))
     model.add(Conv2D(32, kernel_size=3, activation='relu'))
     model.add(Flatten())
-    model.add(Dense(NB_CLASSES))
+    model.add(Dense(NB_CLASSES, activation='softmax'))
     model.compile(loss='categorical_crossentropy', optimizer=SGD(), metrics=['accuracy'])
     hist = model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=NB_EPOCHS, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
     score = model.evaluate(X_test, y_test, verbose=VERBOSE)
