@@ -19,8 +19,8 @@ def processTestData(X, y):
     # reshapes and normalizes our test data.
     n = X.shape[0]  # need to adjust the reshape to account for different sized datasets (n, 28, 28)
 
+    # reshaping our data for a CNN style net.
     X = X.reshape(n, 28, 28, 1)
-
     # y pre-processing goes here.  y_test becomes a ohe
     y_ohe = np_utils.to_categorical(y, NB_CLASSES)
 

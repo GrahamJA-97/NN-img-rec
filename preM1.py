@@ -19,9 +19,6 @@ def processTestData(X, y):
     # reshapes and normalizes our test data.
     n = X.shape[0] # need to adjust the reshape to account for different sized datasets (n, 28, 28)
 
-    print("n value of preM1: ", n)
-
-
     X = X.reshape(n, 784)
     min_max_scaler = preprocessing.MinMaxScaler()
     Xscaled = min_max_scaler.fit_transform(X)

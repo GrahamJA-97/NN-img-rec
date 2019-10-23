@@ -4,11 +4,11 @@
 
 
 import numpy as np
-from keras.layers import Conv2D
+from keras.layers import Conv2D, MaxPooling2D
 
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation, Flatten
-from keras.optimizers import SGD
+from keras.optimizers import SGD, Adadelta
 from keras.utils import np_utils
 from keras.models import load_model
 from sklearn import preprocessing
@@ -58,22 +58,26 @@ def main():
     VERBOSE = 0
     VALIDATION_SPLIT = 0.2
     BATCH_SIZE = 100
-    NB_EPOCHS = 100
+    NB_EPOCHS = 12
 
     print('KERA modeling build starting...')
-    ## Build your model here
+    # Build your model here
     model = Sequential()
     model.add(Conv2D(64, kernel_size=3, input_shape=(28, 28, 1), activation='relu'))
     model.add(Conv2D(32, kernel_size=3, activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())
+    model.add(Dense(NB_CLASSES, activation='relu'))
     model.add(Dense(NB_CLASSES, activation='softmax'))
-    model.compile(loss='categorical_crossentropy', optimizer=SGD(), metrics=['accuracy'])
+    model.summary()
+    model.compile(loss='categorical_crossentropy', optimizer=Adadelta(), metrics=['accuracy'])
     hist = model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=NB_EPOCHS, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
     score = model.evaluate(X_test, y_test, verbose=VERBOSE)
     print('Test loss:', score[0], 'Test accuracy:', score[1])
 
-    ## save your model
+    # save your model
     model.save('m2.h5')
+
 
 if __name__ == '__main__':
     main()
