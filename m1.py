@@ -66,6 +66,7 @@ def main():
 
     # defining constants for building our model.
     FEATURES = X_train.shape[1]
+    feat_array = np.array(FEATURES)
     VERBOSE = 0
     VALIDATION_SPLIT = 0.2
     BATCH_SIZE = 100
@@ -90,6 +91,7 @@ def main():
         acc_array[i] = score[1]
     np.save('m1_time.npy', time_array)
     np.save('m1_acc.npy', acc_array)
+    np.save('m1_feat.npy', feat_array)
 
     print('Test loss:', score[0], 'Test accuracy:', score[1])
 

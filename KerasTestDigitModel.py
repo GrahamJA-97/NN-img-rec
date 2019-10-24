@@ -49,7 +49,6 @@ def parseArguments():
                         help='Verbose flag')
     return parser.parse_args()
 
-
 def main():
     parms = parseArguments()
 
@@ -70,7 +69,7 @@ def main():
 
     (X_test, y_test) = pre.processTestData(X_test,y_test)
 
-    print('reading in model file:', parms.modelFile)
+    print('reading in model file: ', parms.modelFile)
 
     model = load_model(parms.modelFile)
     model.summary()
@@ -83,6 +82,17 @@ def main():
     # used for Autolab to detect accuracy.  Works since valid
     # values are only between 0 and 100 (and return codes
     # can be between -128 and 127).
+
+    noise_file = str(parms.test_X_file)
+    noise_file = noise_file.replace('MNIST_PA2/', '')
+    noise_file = noise_file.replace('.npy', '.txt')
+
+    tested_noise = open(str(parms.modelFile) + "_" + noise_file, "w")
+    tested_noise.write('model: ' + str(parms.modelFile) + '\n')
+    tested_noise.write('Test score: ' + str(score[0]) + '\n')
+    tested_noise.write('Test accuracy: ' + str(score[1]) + '\n')
+    tested_noise.write('Data used for test: ' + parms.test_X_file)
+    tested_noise.write('\n\n\n')
 
     sys.exit(int(score[1]*100))
 
