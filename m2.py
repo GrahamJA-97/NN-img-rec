@@ -15,6 +15,7 @@ from sklearn import preprocessing
 
 from preM2 import processTestData
 import argparse
+import time
 
 
 def parseArguments():
@@ -74,8 +75,19 @@ def main():
     model.add(Dense(NB_CLASSES, activation='softmax'))
     model.summary()
     model.compile(loss='categorical_crossentropy', optimizer=Adadelta(), metrics=['accuracy'])
-    hist = model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=NB_EPOCHS, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
-    score = model.evaluate(X_test, y_test, verbose=VERBOSE)
+    
+    #collect time as model is built one epoch at a time 
+    time_array = np.empty(NB_EPOCHS)
+    acc_array = np.empty(NB_EPOCHS)
+    start_time = time.time()
+    for i in range(NB_EPOCHS):
+        model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=1, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
+        time_array[i] = time.time() - start_time
+        score = model.evaluate(X_test, y_test, verbose=VERBOSE)
+        acc_array[i] = score[1]
+    np.save('m1_time.npy', time_array)
+    np.save('m1_acc.npy', acc_array)
+    
     print('Test loss:', score[0], 'Test accuracy:', score[1])
 
     # save your model
