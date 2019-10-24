@@ -62,23 +62,26 @@ def main():
     VERBOSE = 0
     VALIDATION_SPLIT = 0.2
     BATCH_SIZE = 100
-    NB_EPOCHS = 100
+    NB_EPOCHS = 50
 
     print('KERA modeling build starting...')
     # Build your model here
 
     model = Sequential()
-    model.add(Dense(512, activation='relu', input_shape=(FEATURES, )))
+    model.add(Dense(1024, activation='relu', input_shape=(FEATURES, )))
+    model.add(Dense(512, activation='relu'))
     model.add(Dense(256, activation='relu'))
-    model.add(Dense(128, activation='relu'))
     model.add(Dense(NB_CLASSES, activation='softmax'))
     model.compile(loss='categorical_crossentropy', optimizer=Adadelta(), metrics=['accuracy'])
     hist = model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=NB_EPOCHS, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
     score = model.evaluate(X_test, y_test, verbose=VERBOSE)
     print('Test loss:', score[0], 'Test accuracy:', score[1])
 
+    #got .984 accurate with 300 epochs and 7 layers.
+    # got .984899 with 50 epocs first 3 layers.
+
     # save your model
-    model.save('m3.h5')
+    model.save(str(parms.outModelFile))
 
 if __name__ == '__main__':
     main()

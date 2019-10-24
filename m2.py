@@ -58,12 +58,15 @@ def main():
     VERBOSE = 0
     VALIDATION_SPLIT = 0.2
     BATCH_SIZE = 100
-    NB_EPOCHS = 12
+    NB_EPOCHS = 10
 
     print('KERA modeling build starting...')
     # Build your model here
     model = Sequential()
     model.add(Conv2D(64, kernel_size=3, input_shape=(28, 28, 1), activation='relu'))
+    model.add(Conv2D(64, kernel_size=3, activation='relu'))
+    model.add((MaxPooling2D(pool_size=(2, 2))))
+    model.add(Conv2D(32, kernel_size=3, activation='relu'))
     model.add(Conv2D(32, kernel_size=3, activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())
