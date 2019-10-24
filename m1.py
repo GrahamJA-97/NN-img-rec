@@ -5,6 +5,7 @@
 
 import numpy as np
 import tensorflow as tf
+import time
 
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation
@@ -77,12 +78,23 @@ def main():
     model.add(Activation('softmax'))
     model.summary()
     model.compile(loss='categorical_crossentropy', optimizer=SGD(), metrics=['accuracy'])
-    hist = model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=NB_EPOCHS, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
-    score = model.evaluate(X_test, y_test, verbose=VERBOSE)
+
+    #collect time as model is built one epoch at a time 
+    time_array = np.empty(NB_EPOCHS)
+    acc_array = np.empty(NB_EPOCHS)
+    start_time = time.time()
+    for i in range(NB_EPOCHS):
+        model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=1, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
+        time_array[i] = time.time() - start_time
+        score = model.evaluate(X_test, y_test, verbose=VERBOSE)
+        acc_array[i] = score[1]
+    np.save('m1_time.npy', time_array)
+    np.save('m1_acc.npy', acc_array)
+
     print('Test loss:', score[0], 'Test accuracy:', score[1])
 
     ## save your model
-    model.save('m1.h5')
+    model.save(parms.outModelFile)
 
 if __name__ == '__main__':
     main()

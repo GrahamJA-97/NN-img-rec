@@ -1,0 +1,9 @@
+To run the models in the shell:
+
+python3 m1.py --training_x ./MNIST_PA2/MNIST_X_train_1.npy --training_y ./MNIST_PA2/MNIST_y_train_1.npy --outModelFile m1.h5
+
+python3 m2.py --training_x ./MNIST_PA2/MNIST_X_train_1.npy --training_y ./MNIST_PA2/MNIST_y_train_1.npy --outModelFile m2.h5
+
+python3 m3.py --training_x ./MNIST_PA2/MNIST_X_train_1.npy --training_y ./MNIST_PA2/MNIST_y_train_1.npy --outModelFile m3.h5
+
+
