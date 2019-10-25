@@ -33,6 +33,7 @@ plt.scatter(m3_params, m3_val, color='y', label='Validation 3')
 # Add a title and labels for each of the axis 
 plt.xlabel('Number of Parameters')
 plt.ylabel('Accuracy of the Model(%)')
+plt.title('Parameters vs the Accuracy of the Models')
 plt.grid(True)
 plt.legend(loc='lower right')
 plt.show()
