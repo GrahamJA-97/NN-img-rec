@@ -81,18 +81,19 @@ def main():
     model.summary()
     model.compile(loss='categorical_crossentropy', optimizer=SGD(), metrics=['accuracy'])
 
-    #collect time as model is built one epoch at a time 
-    time_array = np.empty(NB_EPOCHS)
-    acc_array = np.empty(NB_EPOCHS)
+    # Collect data as model is built one epoch at a time 
+    data_array = np.zeros([NB_EPOCHS, 4])
     start_time = time.time()
     for i in range(NB_EPOCHS):
-        model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=1, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
-        time_array[i] = time.time() - start_time
+        hist = model.fit(X_train, y_ohe, batch_size=BATCH_SIZE, epochs=1, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
+        data_array[i][0] = time.time() - start_time
+        data_array[i][1] = hist.history['acc'][0] #training
+        data_array[i][2] = hist.history['val_acc'][0] #validation
         score = model.evaluate(X_test, y_test, verbose=VERBOSE)
-        acc_array[i] = score[1]
-    np.save('data/m1_time.npy', time_array)
-    np.save('data/m1_acc.npy', acc_array)
+        data_array[i][3] = score[1] #test
+        print("Epoch " + str(i + 1) + " of " + str(NB_EPOCHS) + " Completed")
     np.save('data/m1_params.npy', feat_array)
+    np.save('data/m1_data.npy', data_array)
 
     print('Test loss:', score[0], 'Test accuracy:', score[1])
 
