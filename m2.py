@@ -56,7 +56,6 @@ def main():
 
     # defining constants for building our model.
     FEATURES = X_train.shape[1]
-    feat_array = np.array(FEATURES)
     VERBOSE = 0
     VALIDATION_SPLIT = 0.2
     BATCH_SIZE = 100
@@ -74,6 +73,8 @@ def main():
     model.add(Flatten())
     model.add(Dense(NB_CLASSES, activation='relu'))
     model.add(Dense(NB_CLASSES, activation='softmax'))
+
+    feat_array = np.array(model.count_params())
     model.summary()
     model.compile(loss='categorical_crossentropy', optimizer=Adadelta(), metrics=['accuracy'])
     
@@ -86,9 +87,9 @@ def main():
         time_array[i] = time.time() - start_time
         score = model.evaluate(X_test, y_test, verbose=VERBOSE)
         acc_array[i] = score[1]
-    np.save('m2_time.npy', time_array)
-    np.save('m2_acc.npy', acc_array)
-    np.save('m2_feat.npy', feat_array)
+    np.save('data/m2_time.npy', time_array)
+    np.save('data/m2_acc.npy', acc_array)
+    np.save('data/m2_params.npy', feat_array)
     
     print('Test loss:', score[0], 'Test accuracy:', score[1])
 
