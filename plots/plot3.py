@@ -20,15 +20,20 @@ m1_params = np.load('../data/m1_params.npy')
 m2_params = np.load('../data/m2_params.npy')
 m3_params = np.load('../data/m3_params.npy')
 
-# # Plot the three lines
-# plt.plot(np.arange(0, m1.shape[0], 1), m1, label='Model 1')
-# plt.plot(np.arange(0, m2.shape[0], 1), m2, label='Model 2')
-# plt.plot(np.arange(0, m3.shape[0], 1), m3, label='Model 3')
+# Plot the three lines
+plt.scatter(m1_params, m1_train, color='b', label='Training 1')
+plt.scatter(m1_params, m1_val, color='c', label='Validation 1')
+plt.scatter(m2_params, m2_train, color='r', label='Training 2')
+plt.scatter(m2_params, m2_val, color='m', label='Validation 2')
+plt.scatter(m3_params, m3_train, color='g', label='Training 3')
+plt.scatter(m3_params, m3_val, color='y', label='Validation 3')
 
-# # Add a title and labels for each of the axis 
-# plt.xlabel('Epochs')
-# plt.ylabel('Accuracy of the Model(%)')
-# plt.grid(True)
-# plt.legend(loc='upper right')
-# plt.show()
+
+
+# Add a title and labels for each of the axis 
+plt.xlabel('Number of Parameters')
+plt.ylabel('Accuracy of the Model(%)')
+plt.grid(True)
+plt.legend(loc='lower right')
+plt.show()
 
