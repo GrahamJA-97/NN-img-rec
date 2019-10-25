@@ -1,6 +1,0 @@
-model: m2_n20.h5
-Test score: 0.0519076772168567
-Test accuracy: 0.9878000020980835
-Data used for test: MNIST_PA2/MNIST_X_test_1.npy
-
-
