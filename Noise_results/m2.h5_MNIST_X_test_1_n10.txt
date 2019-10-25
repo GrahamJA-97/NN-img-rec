@@ -1,0 +1,6 @@
+model: m2.h5
+Test score: 0.03832130705939526
+Test accuracy: 0.9907000064849854
+Data used for test: MNIST_X_test_1_n10.npy
+Sigmoid = 10
+

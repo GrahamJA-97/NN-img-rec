@@ -1,0 +1,6 @@
+model: m3_n20.h5
+Test score: 0.09351785703738212
+Test accuracy: 0.9836999773979187
+Data used for test: MNIST_X_test_1_n20.npy
+
+
